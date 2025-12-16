@@ -5,7 +5,8 @@
 echo "=== Product Processing API Test ==="
 echo ""
 
-BASE_URL="http://localhost:5050"
+# Use port 5000 to match docker-compose configuration
+BASE_URL="http://localhost:5000"
 
 echo "1. Testing GET /api/products (should be empty initially)"
 curl -s $BASE_URL/api/products | python3 -m json.tool

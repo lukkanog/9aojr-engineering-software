@@ -13,5 +13,5 @@ public interface IProductService
     Task<Product> CreateProductAsync(Product product);
     Task<Product> UpdateProductAsync(int id, Product product);
     Task<bool> DeleteProductAsync(int id);
-    Task<decimal> CalculateDiscountedPriceAsync(int id, decimal discountPercentage);
+    Task<(decimal originalPrice, decimal discountedPrice)> CalculateDiscountedPriceAsync(int id, decimal discountPercentage);
 }

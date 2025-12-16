@@ -14,7 +14,7 @@ services:
       - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__DefaultConnection=Data Source=/app/data/products.db
     volumes:
-      - ./data:/app/data
+      - product-data:/app/data
     restart: unless-stopped
     networks:
       - product-network

@@ -62,7 +62,7 @@ public class ProductService : IProductService
         return await _repository.DeleteAsync(id);
     }
 
-    public async Task<decimal> CalculateDiscountedPriceAsync(int id, decimal discountPercentage)
+    public async Task<(decimal originalPrice, decimal discountedPrice)> CalculateDiscountedPriceAsync(int id, decimal discountPercentage)
     {
         var product = await _repository.GetByIdAsync(id);
         if (product == null)
@@ -71,6 +71,7 @@ public class ProductService : IProductService
         }
 
         // Delegating to the Information Expert (Product knows how to calculate its own discount)
-        return product.CalculateDiscountedPrice(discountPercentage);
+        var discountedPrice = product.CalculateDiscountedPrice(discountPercentage);
+        return (product.Price, discountedPrice);
     }
 }

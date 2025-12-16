@@ -140,8 +140,8 @@ public class ProductsController : ControllerBase
     {
         try
         {
-            var discountedPrice = await _productService.CalculateDiscountedPriceAsync(id, percentage);
-            return Ok(new { originalPrice = (await _productService.GetProductByIdAsync(id))?.Price, discountedPrice, discountPercentage = percentage });
+            var (originalPrice, discountedPrice) = await _productService.CalculateDiscountedPriceAsync(id, percentage);
+            return Ok(new { originalPrice, discountedPrice, discountPercentage = percentage });
         }
         catch (KeyNotFoundException ex)
         {
