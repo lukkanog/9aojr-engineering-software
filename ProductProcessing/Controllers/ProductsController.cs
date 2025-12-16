@@ -4,11 +4,6 @@ using ProductProcessing.Services;
 
 namespace ProductProcessing.Controllers;
 
-/// <summary>
-/// Products API Controller - GRASP Controller principle
-/// Acts as a controller that handles HTTP requests and delegates to the service layer
-/// Maintains low coupling by depending on abstractions (IProductService)
-/// </summary>
 [ApiController]
 [Route("api/[controller]")]
 public class ProductsController : ControllerBase
@@ -22,9 +17,6 @@ public class ProductsController : ControllerBase
         _logger = logger;
     }
 
-    /// <summary>
-    /// Get all products
-    /// </summary>
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Product>>> GetAll()
     {
@@ -40,9 +32,6 @@ public class ProductsController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Get a specific product by ID
-    /// </summary>
     [HttpGet("{id}")]
     public async Task<ActionResult<Product>> GetById(int id)
     {
@@ -62,9 +51,6 @@ public class ProductsController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Create a new product
-    /// </summary>
     [HttpPost]
     public async Task<ActionResult<Product>> Create([FromBody] Product product)
     {
@@ -84,9 +70,6 @@ public class ProductsController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Update an existing product
-    /// </summary>
     [HttpPut("{id}")]
     public async Task<ActionResult<Product>> Update(int id, [FromBody] Product product)
     {
@@ -110,9 +93,6 @@ public class ProductsController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Delete a product
-    /// </summary>
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {
@@ -132,9 +112,6 @@ public class ProductsController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Calculate discounted price for a product
-    /// </summary>
     [HttpGet("{id}/discount")]
     public async Task<ActionResult<decimal>> CalculateDiscount(int id, [FromQuery] decimal percentage)
     {
