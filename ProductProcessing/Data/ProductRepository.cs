@@ -3,11 +3,6 @@ using ProductProcessing.Models;
 
 namespace ProductProcessing.Data;
 
-/// <summary>
-/// Repository implementation - GRASP Creator and Information Expert principles
-/// Creator: Creates and manages Product entities in database
-/// Information Expert: Knows how to perform data access operations
-/// </summary>
 public class ProductRepository : IProductRepository
 {
     private readonly ProductDbContext _context;

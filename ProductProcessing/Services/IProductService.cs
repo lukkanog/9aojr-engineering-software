@@ -2,10 +2,6 @@ using ProductProcessing.Models;
 
 namespace ProductProcessing.Services;
 
-/// <summary>
-/// Service interface - GRASP Low Coupling principle
-/// Defines business operations contract
-/// </summary>
 public interface IProductService
 {
     Task<IEnumerable<Product>> GetAllProductsAsync();

@@ -3,10 +3,6 @@ using ProductProcessing.Models;
 
 namespace ProductProcessing.Data;
 
-/// <summary>
-/// Database context - GRASP Creator principle
-/// Responsible for creating and managing Product entities in the database
-/// </summary>
 public class ProductDbContext : DbContext
 {
     public ProductDbContext(DbContextOptions<ProductDbContext> options) : base(options)

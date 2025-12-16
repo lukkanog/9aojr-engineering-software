@@ -3,11 +3,6 @@ using ProductProcessing.Models;
 
 namespace ProductProcessing.Services;
 
-/// <summary>
-/// Product service - GRASP High Cohesion and Controller principles
-/// High Cohesion: All business logic related to products is in one place
-/// Controller: Coordinates operations between repository and presentation layer
-/// </summary>
 public class ProductService : IProductService
 {
     private readonly IProductRepository _repository;
@@ -29,7 +24,6 @@ public class ProductService : IProductService
 
     public async Task<Product> CreateProductAsync(Product product)
     {
-        // Business logic validation
         if (!product.IsValid())
         {
             throw new InvalidOperationException("Product validation failed");
@@ -46,7 +40,6 @@ public class ProductService : IProductService
             throw new KeyNotFoundException($"Product with id {id} not found");
         }
 
-        // Business logic validation
         if (!product.IsValid())
         {
             throw new InvalidOperationException("Product validation failed");
@@ -70,7 +63,6 @@ public class ProductService : IProductService
             throw new KeyNotFoundException($"Product with id {id} not found");
         }
 
-        // Delegating to the Information Expert (Product knows how to calculate its own discount)
         var discountedPrice = product.CalculateDiscountedPrice(discountPercentage);
         return (product.Price, discountedPrice);
     }

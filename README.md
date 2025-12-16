@@ -17,49 +17,34 @@ ProductProcessing/
 ## 📚 Princípios GRASP Implementados
 
 ### 1. **Information Expert (Especialista da Informação)**
-- **O que é**: Atribui responsabilidade à classe que possui as informações necessárias para executar a tarefa.
-- **Onde está**: A classe `Product` conhece seus próprios dados e implementa métodos como `IsValid()`, `CalculateDiscountedPrice()` e `IsAvailable()`.
-- **Por quê**: O produto sabe calcular seu próprio preço com desconto porque possui as informações necessárias (preço).
+- A classe `Product` implementa métodos como `IsValid()`, `CalculateDiscountedPrice()` e `IsAvailable()`.
 
 ### 2. **Creator (Criador)**
-- **O que é**: Atribui responsabilidade de criar objetos à classe que tem as informações necessárias ou usa esses objetos.
-- **Onde está**: `ProductDbContext` é responsável por criar e gerenciar entidades `Product` no banco de dados. `ProductRepository` cria instâncias de produtos ao recuperá-los do banco.
-- **Por quê**: O contexto do banco de dados tem a responsabilidade natural de criar as entidades que gerencia.
+- `ProductDbContext` é responsável por criar e gerenciar entidades `Product` no banco de dados.
 
 ### 3. **Controller (Controlador)**
-- **O que é**: Atribui responsabilidade de receber e coordenar operações do sistema a uma classe controladora.
-- **Onde está**: `ProductsController` recebe requisições HTTP e coordena as operações, delegando para `ProductService`. O próprio `ProductService` também atua como controlador, coordenando operações entre o repositório e a camada de apresentação.
-- **Por quê**: Separa a lógica de coordenação da lógica de negócio e acesso a dados.
+- `ProductsController` recebe requisições HTTP e coordena as operações, delegando para `ProductService`.
 
 ### 4. **Low Coupling (Baixo Acoplamento)**
-- **O que é**: Minimizar dependências entre classes para facilitar manutenção e evolução.
-- **Onde está**: Uso de interfaces (`IProductRepository`, `IProductService`) e injeção de dependências no `Program.cs`. As classes dependem de abstrações, não de implementações concretas.
-- **Por quê**: Permite trocar implementações sem afetar outras partes do sistema.
+- Uso de interfaces (`IProductRepository`, `IProductService`) e injeção de dependências.
 
 ### 5. **High Cohesion (Alta Coesão)**
-- **O que é**: Manter responsabilidades relacionadas juntas em uma mesma classe.
-- **Onde está**: `ProductService` contém toda a lógica de negócio relacionada a produtos. `ProductRepository` contém apenas operações de acesso a dados.
-- **Por quê**: Cada classe tem um propósito claro e bem definido, facilitando manutenção e compreensão.
+- `ProductService` contém toda a lógica de negócio relacionada a produtos.
+- `ProductRepository` contém apenas operações de acesso a dados.
 
 ## 🎨 Padrões de Design Implementados
 
 ### 1. **Repository Pattern**
-- **O que é**: Abstrai o acesso a dados, centralizando a lógica de persistência.
-- **Implementação**: `IProductRepository` e `ProductRepository` encapsulam todas as operações de banco de dados.
-- **Benefício**: Facilita testes unitários e permite trocar o banco de dados sem afetar o resto da aplicação.
+- `IProductRepository` e `ProductRepository` encapsulam todas as operações de banco de dados.
 
 ### 2. **Dependency Injection (Injeção de Dependências)**
-- **O que é**: Padrão onde dependências são fornecidas externamente em vez de criadas internamente.
-- **Implementação**: Configurado em `Program.cs` usando o container de DI do ASP.NET Core.
-- **Benefício**: Reduz acoplamento e facilita testes.
+- Configurado em `Program.cs` usando o container de DI do ASP.NET Core.
 
 ### 3. **Layered Architecture (Arquitetura em Camadas)**
-- **Camadas**:
-  - **Apresentação**: `ProductsController` - Endpoints da API
-  - **Negócio**: `ProductService` - Lógica de negócio
-  - **Acesso a Dados**: `ProductRepository` - Operações de banco
-  - **Domínio**: `Product` - Modelo de dados
-- **Benefício**: Separação clara de responsabilidades.
+- **Apresentação**: `ProductsController` - Endpoints da API
+- **Negócio**: `ProductService` - Lógica de negócio
+- **Acesso a Dados**: `ProductRepository` - Operações de banco
+- **Domínio**: `Product` - Modelo de dados
 
 ## 🚀 Como Executar
 
