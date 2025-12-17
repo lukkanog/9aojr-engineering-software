@@ -17,7 +17,13 @@ public class ProductsController : ControllerBase
         _logger = logger;
     }
 
+    /// <summary>
+    /// Gets all products.
+    /// </summary>
+    /// <returns>List of products.</returns>
     [HttpGet]
+    [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<IEnumerable<Product>>> GetAll()
     {
         try
@@ -32,7 +38,15 @@ public class ProductsController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Gets a product by its identifier.
+    /// </summary>
+    /// <param name="id">Product identifier.</param>
+    /// <returns>The requested product.</returns>
     [HttpGet("{id}")]
+    [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<Product>> GetById(int id)
     {
         try
@@ -51,7 +65,16 @@ public class ProductsController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Creates a new product.
+    /// </summary>
+    /// <param name="product">Product payload.</param>
+    /// <returns>The created product.</returns>
     [HttpPost]
+    [Consumes("application/json")]
+    [ProducesResponseType(typeof(Product), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<Product>> Create([FromBody] Product product)
     {
         try
@@ -70,7 +93,18 @@ public class ProductsController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Updates an existing product.
+    /// </summary>
+    /// <param name="id">Product identifier.</param>
+    /// <param name="product">Updated product payload.</param>
+    /// <returns>The updated product.</returns>
     [HttpPut("{id}")]
+    [Consumes("application/json")]
+    [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<Product>> Update(int id, [FromBody] Product product)
     {
         try
@@ -93,7 +127,15 @@ public class ProductsController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Deletes a product.
+    /// </summary>
+    /// <param name="id">Product identifier.</param>
+    /// <returns>No content if deletion succeeds.</returns>
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> Delete(int id)
     {
         try
@@ -112,7 +154,17 @@ public class ProductsController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Calculates the discounted price for a product.
+    /// </summary>
+    /// <param name="id">Product identifier.</param>
+    /// <param name="percentage">Discount percentage (0-100).</param>
+    /// <returns>Original and discounted price info.</returns>
     [HttpGet("{id}/discount")]
+    [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<decimal>> CalculateDiscount(int id, [FromQuery] decimal percentage)
     {
         try
